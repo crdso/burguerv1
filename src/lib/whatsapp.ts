@@ -102,11 +102,15 @@ export function buildWhatsappMessage(
   const fee = deliveryFeeFor(checkout)
 
   lines.push('')
-  lines.push(`*Subtotal*: ${formatBRL(subtotal)}`)
-  if (checkout.delivery === 'entrega') {
-    lines.push(`*Taxa de entrega*: ${fee > 0 ? formatBRL(fee) : 'a combinar'}`)
+  if (fee > 0) {
+    lines.push(`*Subtotal*: ${formatBRL(subtotal)}`)
+    lines.push(`*Taxa de entrega*: ${formatBRL(fee)}`)
+    lines.push(`*TOTAL*: ${formatBRL(subtotal + fee)}`)
+  } else {
+    // No flat fee configured: quote it in the conversation, never in the total.
+    if (checkout.delivery === 'entrega') lines.push('*Taxa de entrega*: A combinar')
+    lines.push(`*TOTAL DOS PRODUTOS*: ${formatBRL(subtotal)}`)
   }
-  lines.push(`*TOTAL*: ${formatBRL(subtotal + fee)}`)
 
   return lines.join('\n')
 }

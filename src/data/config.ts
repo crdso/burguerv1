@@ -20,8 +20,12 @@ export const SITE_CONFIG = {
     { days: 'Terça a domingo', time: '18:00 às 23:30' },
     { days: 'Segunda-feira', time: 'Fechado' },
   ],
-  /** Flat fee added to delivery orders. Set to 0 to quote it on WhatsApp instead. */
-  deliveryFee: 5,
+  /**
+   * Flat fee added to delivery orders. Kept at 0 because the real fee varies by
+   * neighbourhood: at 0 nothing is added to the total and the order says the fee
+   * is still to be agreed. Only set a number here if a single flat fee is true.
+   */
+  deliveryFee: 0,
   estimatedDelivery: 'Entre 20 e 60 minutos',
   /** Generated from the untouched `burguer.mp4` by `npm run media`. */
   media: {

@@ -179,20 +179,18 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
 
             {items.length > 0 && (
               <div className="border-t border-line px-6 py-5">
-                <div className="flex items-center justify-between font-body text-sm text-ink/70">
-                  <span>Subtotal</span>
-                  <span>{formatBRL(subtotal)}</span>
-                </div>
-                <div className="mt-1 flex items-center justify-between font-body text-xs text-ink/45">
+                <div className="flex items-center justify-between font-body text-xs text-ink/45">
                   <span>Taxa de entrega</span>
                   <span>
                     {SITE_CONFIG.deliveryFee > 0
                       ? `${formatBRL(SITE_CONFIG.deliveryFee)} (entrega)`
-                      : 'a combinar'}
+                      : 'A combinar'}
                   </span>
                 </div>
                 <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
-                  <span className="font-display text-xl text-ink">Subtotal</span>
+                  <span className="font-display text-xl text-ink">
+                    {SITE_CONFIG.deliveryFee > 0 ? 'Subtotal' : 'Total dos produtos'}
+                  </span>
                   <span className="font-display text-2xl text-flame">{formatBRL(subtotal)}</span>
                 </div>
 
