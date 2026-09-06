@@ -1,0 +1,13 @@
+node_modules
+dist
+dist-ssr
+*.local
+.DS_Store
+
+# Higgsfield/Claude skill installs (unrelated to the web app)
+.agents/
+.claude/skills/
+skills-lock.json
+
+# stray scraped media, not part of the project
+*From Klickpin.com*.mp4
