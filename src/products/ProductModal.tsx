@@ -30,6 +30,8 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
     setNote('')
   }, [product?.id])
 
+  const isSoldOut = product?.badge === 'Esgotado'
+
   const selection: CartItemSelection = useMemo(
     () => ({ extraIds, removedIds, note }),
     [extraIds, removedIds, note],
@@ -43,7 +45,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
   }
 
   function handleAdd() {
-    if (!product) return
+    if (!product || isSoldOut) return
     addItem(product, quantity, selection)
     onClose()
     openCart()
@@ -91,7 +93,13 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                 <h2 id="product-modal-title" className="font-display text-2xl leading-none tracking-wide text-ink">
                   {product.name}
                 </h2>
+                {isSoldOut && (
+                  <span className="mt-2 inline-flex rounded-full bg-red-600 px-2.5 py-0.5 font-body text-[10px] font-bold uppercase tracking-wider text-white">
+                    Esgotado
+                  </span>
+                )}
                 <p className="mt-1.5 font-body text-xs leading-relaxed text-ink/50">{product.description}</p>
+                <p className="mt-2 font-body text-sm font-bold text-ink">{formatBRL(product.price)}</p>
               </div>
 
               <button
@@ -184,7 +192,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   aria-label="Diminuir quantidade"
                   className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-graphite/5 disabled:opacity-30"
-                  disabled={quantity <= 1}
+                  disabled={quantity <= 1 || isSoldOut}
                 >
                   <Minus size={14} />
                 </button>
@@ -193,7 +201,8 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   type="button"
                   onClick={() => setQuantity((q) => q + 1)}
                   aria-label="Aumentar quantidade"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-graphite/5"
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-graphite/5 disabled:opacity-30"
+                  disabled={isSoldOut}
                 >
                   <Plus size={14} />
                 </button>
@@ -202,10 +211,11 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               <button
                 type="button"
                 onClick={handleAdd}
-                className="flex flex-1 items-center justify-between gap-2 rounded-full bg-ink px-5 py-3 font-body text-[13px] font-bold uppercase tracking-wider text-paper transition-colors hover:bg-graphite"
+                disabled={isSoldOut}
+                className={`flex flex-1 items-center justify-between gap-2 rounded-full px-5 py-3 font-body text-[13px] font-bold uppercase tracking-wider transition-colors ${isSoldOut ? 'cursor-not-allowed bg-line text-ink/40' : 'bg-ink text-paper hover:bg-graphite'}`}
               >
-                <span>Adicionar</span>
-                <span>{formatBRL(total)}</span>
+                <span>{isSoldOut ? 'Indisponível' : 'Adicionar'}</span>
+                <span>{isSoldOut ? formatBRL(product.price) : formatBRL(total)}</span>
               </button>
             </div>
           </motion.div>

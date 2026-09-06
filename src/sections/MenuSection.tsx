@@ -24,18 +24,28 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
 
   const searching = deferredQuery.trim().length > 0
 
+  const categoryLabelMap = useMemo(() => {
+    const map = new Map<Category, string>()
+    for (const c of CATEGORIES) map.set(c.id, c.label)
+    return map
+  }, [])
+
   const filtered = useMemo(() => {
     const term = normalize(deferredQuery.trim())
     // A search looks across the whole menu; categories only filter when idle.
     const base = term ? PRODUCTS : PRODUCTS.filter((p) => p.category === active)
     if (!term) return base
     return base.filter(
-      (p) => normalize(p.name).includes(term) || normalize(p.description).includes(term),
+      (p) =>
+        normalize(p.name).includes(term) ||
+        normalize(p.description).includes(term) ||
+        normalize(p.category).includes(term) ||
+        normalize(categoryLabelMap.get(p.category) ?? '').includes(term),
     )
-  }, [active, deferredQuery])
+  }, [active, deferredQuery, categoryLabelMap])
 
   return (
-    <section id="cardapio" aria-label={`Cardápio ${SITE_CONFIG.brand}`} className="bg-paper px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
+    <section id="cardapio" aria-label={`Cardápio ${SITE_CONFIG.brand}`} className="bg-paper px-3 py-10 sm:px-6 sm:py-12 lg:px-8">
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>
@@ -72,7 +82,7 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
         </div>
 
         <div
-          className={`mt-7 flex flex-wrap gap-2 transition-opacity ${searching ? 'opacity-40' : ''}`}
+          className={`mt-5 flex flex-wrap gap-1.5 transition-opacity sm:gap-2 ${searching ? 'opacity-40' : ''}`}
           role="tablist"
           aria-label="Categorias do cardápio"
         >
@@ -86,7 +96,7 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
                 setQuery('')
                 setActive(category.id)
               }}
-              className={`rounded-full border px-4 py-2 font-body text-[13px] font-bold transition-colors ${
+              className={`rounded-full border px-3 py-1.5 font-body text-[12px] font-bold transition-colors sm:px-3.5 sm:py-2 sm:text-[12px] ${
                 !searching && active === category.id
                   ? 'border-ink bg-ink text-paper'
                   : 'border-line text-ink/60 hover:border-ink/40 hover:text-ink'
@@ -105,7 +115,7 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
           </p>
         )}
 
-        <div className="mt-7 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 lg:gap-4 2xl:grid-cols-5">
+        <div className="mt-5 grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-4 lg:gap-3 xl:grid-cols-5 2xl:grid-cols-5">
           {filtered.map((product, i) => (
             <ProductCard key={product.id} product={product} onSelect={onSelectProduct} priority={i < 5} />
           ))}
