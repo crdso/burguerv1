@@ -7,17 +7,15 @@ type Window4 = [number, number, number, number]
 const LINES = [
   'Pão brioche tostado na manteiga.',
   'Blend de 160g na chapa quente.',
-  'Cheddar, bacon e cebola roxa.',
-  'Montado na hora do seu pedido.',
+  'Cheddar, bacon, tomate e alface.',
 ]
 
 /** One window per rendered line: the brand headline first, then LINES. */
 const CHAPTERS: Window4[] = [
-  [0, 0, 0.14, 0.2],
-  [0.2, 0.26, 0.36, 0.42],
-  [0.42, 0.48, 0.56, 0.62],
-  [0.6, 0.66, 0.72, 0.78],
-  [0.76, 0.82, 0.9, 0.95],
+  [0, 0, 0.16, 0.23],
+  [0.23, 0.3, 0.42, 0.49],
+  [0.47, 0.54, 0.64, 0.71],
+  [0.69, 0.76, 0.88, 0.94],
 ]
 
 /** The video reaches its last frame here; the rest of the track fades to the page. */
@@ -70,7 +68,8 @@ export function BurgerScrub() {
       return
     }
 
-    const isMobile = window.matchMedia('(max-width: 900px), (hover: none) and (pointer: coarse)').matches
+    // Width only: a wide touchscreen laptop should still get the full-size asset.
+    const isMobile = window.matchMedia('(max-width: 900px)').matches
     // Below this delta a seek costs more than it visually gains.
     const seekThreshold = isMobile ? 0.03 : 0.018
 
@@ -239,8 +238,6 @@ export function BurgerScrub() {
             decoding="async"
           />
         </div>
-
-        <div className="scrub-blend" aria-hidden="true" />
 
         <div ref={copyRef} className="scrub-copy">
           <p className="scrub-kicker">{SITE_CONFIG.address.city}</p>

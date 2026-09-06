@@ -73,6 +73,8 @@ body {
 
 /* ---------------------------------------------------------------
    Scroll-scrubbed burger assembly.
+   The video is pre-composited onto --page at encode time, so it needs
+   no mask or blend here: the burger simply sits on the page.
    JS writes --scrub-progress / --scrub-veil; nothing here re-renders.
    --------------------------------------------------------------- */
 
@@ -80,13 +82,15 @@ body {
   --scrub-progress: 0;
   --scrub-veil: 0;
   position: relative;
-  height: 420svh;
+  height: 400svh;
   background: var(--page);
 }
 
 .scrub-stage {
   position: sticky;
   top: 0;
+  display: grid;
+  place-items: center;
   height: 100svh;
   width: 100%;
   overflow: hidden;
@@ -97,22 +101,30 @@ body {
 .scrub-media {
   position: absolute;
   inset: 0;
+  overflow: hidden;
   z-index: 1;
 }
 
+/* Sized so the burger reads as large as it can without ever clipping:
+   the clip only fills ~82% of the frame height, so the frame overflows the
+   stage vertically (that margin is empty) but never horizontally.
+   Centred with transforms because an overflowing grid item anchors to the
+   row start instead of staying centred. */
 .scrub-video,
 .scrub-still {
   display: block;
-  width: 100%;
-  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  aspect-ratio: 1080 / 1920;
+  height: min(118svh, 166vw);
+  width: auto;
+  max-width: none;
   object-fit: contain;
-  object-position: center;
-  background: var(--page);
 }
 
 .scrub-still {
-  position: absolute;
-  inset: 0;
   opacity: 0;
   pointer-events: none;
   transition: opacity 0.45s ease;
@@ -126,28 +138,13 @@ body {
   visibility: hidden;
 }
 
-/* Dissolves the video's own dark backdrop into the page on every edge,
-   so it reads as part of the layout instead of a pasted rectangle. */
-.scrub-blend {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  pointer-events: none;
-  background:
-    linear-gradient(to bottom, var(--page) 0%, rgba(8, 7, 6, 0) 16%),
-    linear-gradient(to top, var(--page) 0%, rgba(8, 7, 6, 0) 20%),
-    linear-gradient(to right, var(--page) 0%, rgba(8, 7, 6, 0) 14%),
-    linear-gradient(to left, var(--page) 0%, rgba(8, 7, 6, 0) 14%);
-}
-
 .scrub-copy {
-  position: absolute;
+  grid-area: 1 / 1;
   z-index: 3;
-  left: clamp(1.25rem, 5vw, 5rem);
-  top: 50%;
-  transform: translateY(-50%);
-  /* Narrow enough to sit beside the contained video, never across the burger. */
-  width: min(24rem, 28vw);
+  justify-self: start;
+  align-self: center;
+  margin-left: clamp(1.25rem, 5vw, 5rem);
+  width: min(22rem, 26vw);
   pointer-events: none;
 }
 
@@ -161,7 +158,7 @@ body {
 
 .scrub-lines {
   display: grid;
-  margin-top: 1.1rem;
+  margin-top: 1rem;
 }
 
 .scrub-line {
@@ -174,18 +171,18 @@ body {
   font-family: 'Bebas Neue', Impact, sans-serif;
   color: #f2e6d2;
   line-height: 1;
-  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+  font-size: clamp(1.35rem, 2.2vw, 2.15rem);
 }
 
 .scrub-title {
-  line-height: 0.86;
-  font-size: clamp(2.5rem, 4.6vw, 4.75rem);
+  line-height: 0.88;
+  font-size: clamp(2.25rem, 4.2vw, 4.25rem);
 }
 
 .scrub-rail {
   position: relative;
-  margin-top: 2rem;
-  width: min(12rem, 55%);
+  margin-top: 1.75rem;
+  width: min(10rem, 55%);
   height: 1px;
   background: rgba(242, 230, 210, 0.16);
   overflow: hidden;
@@ -241,7 +238,7 @@ body {
   position: absolute;
   z-index: 4;
   left: 50%;
-  bottom: clamp(2rem, 8vh, 5rem);
+  bottom: clamp(2rem, 7vh, 4.5rem);
   transform: translateX(-50%);
   opacity: 0;
   pointer-events: none;
@@ -275,43 +272,37 @@ body {
 
 @media (max-width: 900px) {
   .scrub {
-    height: 360svh;
+    height: 340svh;
   }
 
   .scrub-copy {
-    top: auto;
-    bottom: clamp(4.5rem, 14vh, 8rem);
-    transform: none;
-    left: clamp(1.25rem, 6vw, 2.5rem);
-    right: clamp(1.25rem, 6vw, 2.5rem);
+    align-self: end;
+    justify-self: stretch;
+    margin: 0 clamp(1.25rem, 6vw, 2.5rem) clamp(4rem, 13vh, 7rem);
     width: auto;
   }
 
-  .scrub-rail {
-    margin-top: 1.25rem;
-    width: 7rem;
-  }
-
   .scrub-line {
-    font-size: clamp(1.35rem, 6.5vw, 2rem);
+    font-size: clamp(1.25rem, 5.6vw, 1.85rem);
   }
 
   .scrub-title {
-    font-size: clamp(2.75rem, 14vw, 4rem);
+    font-size: clamp(2.5rem, 12.5vw, 3.75rem);
   }
 
-  /* Lifts the burger clear of the copy block sitting at the bottom. */
+  .scrub-rail {
+    margin-top: 1.1rem;
+    width: 6.5rem;
+  }
+
+  /* The copy moves to the bottom here, so the burger gets the area above it
+     and is centred inside that box rather than inside the whole stage. */
+  .scrub-media {
+    bottom: 24%;
+  }
+
   .scrub-video,
   .scrub-still {
-    object-position: center 22%;
-  }
-
-  /* Deeper base under the copy so type stays readable over the food. */
-  .scrub-blend {
-    background:
-      linear-gradient(to bottom, var(--page) 0%, rgba(8, 7, 6, 0) 12%),
-      linear-gradient(to top, var(--page) 0%, rgba(8, 7, 6, 0.88) 14%, rgba(8, 7, 6, 0) 42%),
-      linear-gradient(to right, var(--page) 0%, rgba(8, 7, 6, 0) 8%),
-      linear-gradient(to left, var(--page) 0%, rgba(8, 7, 6, 0) 8%);
+    height: min(118%, 166vw);
   }
 }

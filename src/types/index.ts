@@ -1,10 +1,4 @@
-export type Category =
-  | 'smash'
-  | 'classicos'
-  | 'especiais'
-  | 'combos'
-  | 'acompanhamentos'
-  | 'bebidas'
+export type Category = 'hamburgueres' | 'bebidas' | 'acompanhamentos' | 'sobremesas'
 
 export interface ProductExtra {
   id: string

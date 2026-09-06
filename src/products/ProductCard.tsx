@@ -10,55 +10,51 @@ interface ProductCardProps {
 
 export function ProductCard({ product, onSelect, priority = false }: ProductCardProps) {
   return (
-    <button
-      type="button"
-      onClick={() => onSelect(product)}
-      className="group relative flex w-full flex-col overflow-hidden rounded-[2px] bg-charcoal text-left transition-transform duration-500 hover:-translate-y-1 focus-visible:-translate-y-1"
-    >
-      <div className="relative aspect-[4/5] w-full overflow-hidden bg-ash">
+    <article className="group flex flex-col overflow-hidden rounded-2xl border border-cream/10 bg-charcoal transition-colors duration-200 hover:border-cream/25">
+      <button
+        type="button"
+        onClick={() => onSelect(product)}
+        aria-label={`Ver ${product.name}`}
+        className="relative block aspect-square w-full overflow-hidden bg-ash"
+      >
         {product.image ? (
           <img
             src={product.image}
             alt={product.name}
             loading={priority ? 'eager' : 'lazy'}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+            decoding="async"
+            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
-          <div className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ash via-charcoal to-void">
-            <Flame
-              size={72}
-              strokeWidth={1}
-              className="text-ember/25 transition-transform duration-700 group-hover:scale-110"
-            />
-            <span className="absolute bottom-3 left-3 font-body text-[10px] uppercase tracking-widest2 text-cream/30">
-              Foto em breve
-            </span>
-          </div>
+          <span className="flex h-full w-full items-center justify-center bg-gradient-to-br from-ash to-void">
+            <Flame size={34} strokeWidth={1.2} className="text-ember/25" />
+          </span>
         )}
 
-        <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-90" />
-
         {product.badge && (
-          <span className="absolute left-3 top-3 rounded-full bg-flame/90 px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-cream">
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-void/80 px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-ember backdrop-blur-sm">
             {product.badge}
           </span>
         )}
+      </button>
 
-        <span className="absolute bottom-3 right-3 flex h-10 w-10 items-center justify-center rounded-full bg-cream text-void opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
-          <Plus size={18} strokeWidth={2.5} />
-        </span>
-      </div>
+      <div className="flex flex-1 flex-col gap-1.5 p-3.5">
+        <h3 className="font-display text-lg leading-none tracking-wide text-cream">{product.name}</h3>
+        <p className="line-clamp-2 font-body text-xs leading-relaxed text-cream/50">{product.description}</p>
 
-      <div className="flex flex-1 flex-col gap-2 px-1 py-4">
-        <h3 className="font-display text-2xl tracking-wide text-cream">{product.name}</h3>
-        <p className="line-clamp-2 font-body text-sm text-cream/60">{product.description}</p>
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="font-body text-lg font-bold text-ember">{formatBRL(product.price)}</span>
-          <span className="font-body text-xs font-semibold uppercase tracking-widest text-cream/50 underline decoration-cream/20 underline-offset-4 group-hover:text-ember group-hover:decoration-ember">
+        {/* Stacks on narrow cards, where a price + button row would clip. */}
+        <div className="mt-auto flex flex-col gap-2 pt-3 sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-body text-[15px] font-bold text-cream">{formatBRL(product.price)}</span>
+          <button
+            type="button"
+            onClick={() => onSelect(product)}
+            className="flex w-full items-center justify-center gap-1.5 rounded-full bg-ember px-3 py-2 font-body text-[11px] font-bold uppercase tracking-wider text-void transition-colors hover:bg-flame sm:w-auto"
+          >
+            <Plus size={13} strokeWidth={3} />
             Adicionar
-          </span>
+          </button>
         </div>
       </div>
-    </button>
+    </article>
   )
 }
