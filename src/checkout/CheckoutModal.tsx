@@ -3,7 +3,12 @@ import { AnimatePresence, motion } from 'framer-motion'
 import { X } from 'lucide-react'
 import type { CheckoutData } from '../types'
 import { useCartStore, cartSubtotal } from '../store/cartStore'
-import { buildWhatsappMessage, buildWhatsappUrl } from '../lib/whatsapp'
+import {
+  buildWhatsappMessage,
+  buildWhatsappUrl,
+  deliveryFeeFor,
+  generateOrderNumber,
+} from '../lib/whatsapp'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useEscapeKey } from '../hooks/useEscapeKey'
 import { Button } from '../components/Button'
@@ -29,6 +34,8 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
   const clear = useCartStore((s) => s.clear)
   const closeCart = useCartStore((s) => s.closeCart)
   const subtotal = cartSubtotal(items)
+  const fee = deliveryFeeFor(data)
+  const total = subtotal + fee
 
   useLockBodyScroll(open)
   useEscapeKey(open, onClose)
@@ -43,7 +50,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
 
   function handleSubmit(event: React.FormEvent) {
     event.preventDefault()
-    const message = buildWhatsappMessage(items, data)
+    const message = buildWhatsappMessage(items, data, generateOrderNumber())
     const url = buildWhatsappUrl(message)
     window.open(url, '_blank', 'noopener,noreferrer')
     clear()
@@ -215,12 +222,13 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                   <legend className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                     Forma de pagamento
                   </legend>
-                  <div className="mt-3 grid grid-cols-3 gap-3">
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
                     {(
                       [
                         { id: 'pix', label: 'Pix' },
                         { id: 'dinheiro', label: 'Dinheiro' },
-                        { id: 'cartao', label: 'Cartão' },
+                        { id: 'debito', label: 'Débito' },
+                        { id: 'credito', label: 'Crédito' },
                       ] as const
                     ).map((option) => (
                       <label
@@ -262,13 +270,28 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
               </div>
 
               <div className="border-t border-line px-6 py-5">
-                <div className="mb-4 flex items-center justify-between font-body text-sm text-ink/60">
-                  <span>Subtotal do pedido</span>
-                  <span className="font-display text-xl text-flame">{formatBRL(subtotal)}</span>
-                </div>
+                <dl className="mb-4 flex flex-col gap-1.5 font-body text-sm">
+                  <div className="flex items-center justify-between text-ink/60">
+                    <dt>Subtotal</dt>
+                    <dd>{formatBRL(subtotal)}</dd>
+                  </div>
+                  {data.delivery === 'entrega' && (
+                    <div className="flex items-center justify-between text-ink/60">
+                      <dt>Taxa de entrega</dt>
+                      <dd>{fee > 0 ? formatBRL(fee) : 'a combinar'}</dd>
+                    </div>
+                  )}
+                  <div className="mt-1 flex items-center justify-between border-t border-line pt-2.5">
+                    <dt className="font-display text-lg tracking-wide text-ink">Total</dt>
+                    <dd className="font-display text-2xl text-flame">{formatBRL(total)}</dd>
+                  </div>
+                </dl>
                 <Button type="submit" variant="solid" className="w-full">
                   Finalizar no WhatsApp
                 </Button>
+                <p className="mt-3 text-center font-body text-[11px] text-ink/45">
+                  Abre o WhatsApp com o pedido pronto. Você confere e envia.
+                </p>
               </div>
             </form>
           </motion.div>

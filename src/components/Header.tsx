@@ -23,11 +23,12 @@ export function Header() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
-        scrolled ? 'bg-paper/90 backdrop-blur-md' : 'bg-transparent'
+      className={`fixed inset-x-0 top-0 z-40 h-[var(--header-h)] transition-shadow duration-300 ${
+        scrolled ? 'shadow-[0_1px_0_rgba(20,17,15,0.08)]' : ''
       }`}
+      style={{ backgroundColor: 'var(--page)' }}
     >
-      <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
+      <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
         <a href="#top" className="font-display text-xl tracking-wide text-ink sm:text-2xl">
           {SITE_CONFIG.brand}
         </a>

@@ -15,7 +15,7 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
         type="button"
         onClick={() => onSelect(product)}
         aria-label={`Ver ${product.name}`}
-        className="relative block aspect-square w-full overflow-hidden bg-line/40"
+        className="relative block aspect-[4/3] w-full overflow-hidden bg-line/40"
       >
         {product.image ? (
           <img
@@ -27,7 +27,7 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
           />
         ) : (
           <span className="flex h-full w-full items-center justify-center bg-line/40">
-            <Flame size={34} strokeWidth={1.2} className="text-ink/15" />
+            <Flame size={26} strokeWidth={1.2} className="text-ink/15" />
           </span>
         )}
 
@@ -38,13 +38,13 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
         )}
       </button>
 
-      <div className="flex flex-1 flex-col gap-1.5 p-3.5">
-        <h3 className="font-display text-lg leading-none tracking-wide text-ink">{product.name}</h3>
-        <p className="line-clamp-2 font-body text-xs leading-relaxed text-ink/50">{product.description}</p>
+      <div className="flex flex-1 flex-col gap-1 p-3">
+        <h3 className="font-display text-base leading-none tracking-wide text-ink sm:text-lg">{product.name}</h3>
+        <p className="line-clamp-2 font-body text-[11px] leading-snug text-ink/50">{product.description}</p>
 
         {/* Stacks on narrow cards, where a price + button row would clip. */}
-        <div className="mt-auto flex flex-col gap-2 pt-3 sm:flex-row sm:items-center sm:justify-between">
-          <span className="font-body text-[15px] font-bold text-ink">{formatBRL(product.price)}</span>
+        <div className="mt-auto flex flex-col gap-2 pt-2.5 sm:flex-row sm:items-center sm:justify-between">
+          <span className="font-body text-sm font-bold text-ink">{formatBRL(product.price)}</span>
           <button
             type="button"
             onClick={() => onSelect(product)}

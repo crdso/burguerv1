@@ -3,6 +3,7 @@ import { Flame, Minus, Pencil, Plus, ShoppingBag, Trash2, X } from 'lucide-react
 import type { Product } from '../types'
 import { cartSubtotal, resolveProduct, useCartStore } from '../store/cartStore'
 import { formatBRL } from '../lib/format'
+import { SITE_CONFIG } from '../data/config'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useEscapeKey } from '../hooks/useEscapeKey'
@@ -184,10 +185,14 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                 </div>
                 <div className="mt-1 flex items-center justify-between font-body text-xs text-ink/45">
                   <span>Taxa de entrega</span>
-                  <span>calculada pelo WhatsApp</span>
+                  <span>
+                    {SITE_CONFIG.deliveryFee > 0
+                      ? `${formatBRL(SITE_CONFIG.deliveryFee)} (entrega)`
+                      : 'a combinar'}
+                  </span>
                 </div>
                 <div className="mt-3 flex items-center justify-between border-t border-line pt-3">
-                  <span className="font-display text-xl text-ink">Total parcial</span>
+                  <span className="font-display text-xl text-ink">Subtotal</span>
                   <span className="font-display text-2xl text-flame">{formatBRL(subtotal)}</span>
                 </div>
 

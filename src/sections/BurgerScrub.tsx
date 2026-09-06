@@ -1,5 +1,6 @@
 import { useEffect, useRef } from 'react'
 import { SITE_CONFIG } from '../data/config'
+import { useCartStore } from '../store/cartStore'
 
 /** [fadeInStart, fadeInEnd, fadeOutStart, fadeOutEnd] in scroll-progress space. */
 type Window4 = [number, number, number, number]
@@ -42,7 +43,7 @@ export function BurgerScrub() {
   const videoRef = useRef<HTMLVideoElement>(null)
   const copyRef = useRef<HTMLDivElement>(null)
   const cueRef = useRef<HTMLDivElement>(null)
-  const outroRef = useRef<HTMLDivElement>(null)
+  const openCart = useCartStore((state) => state.openCart)
 
   useEffect(() => {
     const section = sectionRef.current
@@ -52,7 +53,6 @@ export function BurgerScrub() {
 
     const lines = Array.from(copyRef.current?.querySelectorAll<HTMLElement>('.scrub-line') ?? [])
     const cue = cueRef.current
-    const outro = outroRef.current
 
     if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       section.dataset.mode = 'static'
@@ -61,10 +61,6 @@ export function BurgerScrub() {
         line.style.opacity = i === 0 ? '1' : '0'
         line.style.transform = 'none'
       })
-      if (outro) {
-        outro.style.opacity = '1'
-        outro.style.pointerEvents = 'auto'
-      }
       return
     }
 
@@ -93,11 +89,6 @@ export function BurgerScrub() {
         lines[i].style.transform = `translate3d(0, ${((1 - o) * 12).toFixed(2)}px, 0)`
       }
       if (cue) cue.style.opacity = (1 - ease((progress - 0.06) / 0.1)).toFixed(3)
-      if (outro) {
-        const o = opacityFor(progress, [0.84, 0.9, 1.01, 1.02])
-        outro.style.opacity = o.toFixed(3)
-        outro.style.pointerEvents = o > 0.6 ? 'auto' : 'none'
-      }
     }
 
     // Always cancel before scheduling: a frame dropped while the tab is hidden
@@ -239,7 +230,9 @@ export function BurgerScrub() {
         </div>
 
         <div ref={copyRef} className="scrub-copy">
-          <p className="scrub-kicker">{SITE_CONFIG.address.city}</p>
+          <p className="scrub-kicker">
+            {SITE_CONFIG.address.city} — {SITE_CONFIG.address.state}
+          </p>
           <div className="scrub-lines">
             <h1 id="scrub-title" className="scrub-line scrub-title">
               {SITE_CONFIG.brand}
@@ -250,18 +243,28 @@ export function BurgerScrub() {
               </p>
             ))}
           </div>
+
+          <p className="scrub-support">{SITE_CONFIG.tagline} Peça pelo WhatsApp e retire ou receba em casa.</p>
+
+          <div className="scrub-actions">
+            <a
+              href="#cardapio"
+              className="inline-flex items-center justify-center rounded-full bg-flame px-7 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-paper transition-colors hover:bg-ink"
+            >
+              Ver o cardápio
+            </a>
+            <button
+              type="button"
+              onClick={openCart}
+              className="inline-flex items-center justify-center rounded-full border border-ink/20 px-7 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+            >
+              Pedir agora
+            </button>
+          </div>
+
           <div className="scrub-rail" aria-hidden="true">
             <i />
           </div>
-        </div>
-
-        <div ref={outroRef} className="scrub-outro">
-          <a
-            href="#cardapio"
-            className="inline-flex items-center rounded-full bg-flame px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-paper transition-colors hover:bg-ink"
-          >
-            Ver o cardápio
-          </a>
         </div>
 
         <div ref={cueRef} className="scrub-cue" aria-hidden="true">

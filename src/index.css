@@ -6,6 +6,7 @@
   color-scheme: light;
   --page: #fcfaf8;
   --ink: #14110f;
+  --header-h: 76px;
 }
 
 * {
@@ -86,30 +87,35 @@ body {
   background: var(--page);
 }
 
+/* Two columns: copy left, burger right. The top padding is the header's
+   height, so the burger is never covered by it. */
 .scrub-stage {
   position: sticky;
   top: 0;
   display: grid;
-  place-items: center;
+  grid-template-columns: minmax(0, 40%) minmax(0, 60%);
+  align-items: center;
   height: 100svh;
   width: 100%;
+  padding-top: var(--header-h);
+  padding-left: clamp(1.25rem, 5vw, 5rem);
   overflow: hidden;
   isolation: isolate;
   background: var(--page);
 }
 
 .scrub-media {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  z-index: 1;
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  height: 100%;
+  min-width: 0;
 }
 
-/* Sized so the burger reads as large as it can without ever clipping:
-   the clip only fills ~82% of the frame height, so the frame overflows the
-   stage vertically (that margin is empty) but never horizontally.
-   Centred with transforms because an overflowing grid item anchors to the
-   row start instead of staying centred. */
+/* The clip only fills ~82% of its frame height and 95% of its width, so the
+   frame is scaled past a plain fit and allowed to overflow into that empty
+   margin. Centred with transforms: an overflowing grid item would otherwise
+   anchor to the row start. */
 .scrub-video,
 .scrub-still {
   display: block;
@@ -118,7 +124,7 @@ body {
   top: 50%;
   transform: translate(-50%, -50%);
   aspect-ratio: 1080 / 1920;
-  height: min(118svh, 166vw);
+  height: min(113%, 94vw);
   width: auto;
   max-width: none;
   object-fit: contain;
@@ -139,13 +145,11 @@ body {
 }
 
 .scrub-copy {
-  grid-area: 1 / 1;
+  grid-column: 1;
+  grid-row: 1;
   z-index: 3;
-  justify-self: start;
-  align-self: center;
-  margin-left: clamp(1.25rem, 5vw, 5rem);
-  width: min(22rem, 26vw);
-  pointer-events: none;
+  min-width: 0;
+  padding-right: 1.5rem;
 }
 
 .scrub-kicker {
@@ -159,6 +163,8 @@ body {
 .scrub-lines {
   display: grid;
   margin-top: 1rem;
+  /* Reserves the tallest line's height so nothing below shifts as they cycle. */
+  min-height: 4.2em;
 }
 
 .scrub-line {
@@ -170,22 +176,38 @@ body {
   will-change: opacity, transform;
   font-family: 'Bebas Neue', Impact, sans-serif;
   color: var(--ink);
-  line-height: 1;
-  font-size: clamp(1.35rem, 2.2vw, 2.15rem);
+  line-height: 0.95;
+  font-size: clamp(1.6rem, 2.7vw, 2.75rem);
 }
 
 .scrub-title {
-  line-height: 0.88;
-  font-size: clamp(2.25rem, 4.2vw, 4.25rem);
+  line-height: 0.86;
+  font-size: clamp(2.75rem, 5.2vw, 5.25rem);
+}
+
+.scrub-support {
+  margin-top: 1.25rem;
+  max-width: 30ch;
+  font-size: clamp(0.95rem, 1.1vw, 1.125rem);
+  line-height: 1.5;
+  color: rgba(20, 17, 15, 0.62);
+}
+
+.scrub-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.75rem;
 }
 
 .scrub-rail {
   position: relative;
-  margin-top: 1.75rem;
-  width: min(10rem, 55%);
-  height: 1px;
-  background: rgba(20, 17, 15, 0.14);
+  margin-top: 2rem;
+  width: min(11rem, 60%);
+  height: 2px;
+  background: rgba(20, 17, 15, 0.12);
   overflow: hidden;
+  border-radius: 999px;
 }
 
 .scrub-rail i {
@@ -211,7 +233,7 @@ body {
   letter-spacing: 0.2em;
   text-transform: uppercase;
   white-space: nowrap;
-  color: rgba(20, 17, 15, 0.5);
+  color: rgba(20, 17, 15, 0.45);
   pointer-events: none;
 }
 
@@ -234,17 +256,6 @@ body {
   }
 }
 
-.scrub-outro {
-  position: absolute;
-  z-index: 4;
-  left: 50%;
-  bottom: clamp(2rem, 7vh, 4.5rem);
-  transform: translateX(-50%);
-  opacity: 0;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
 /* Reduced motion: collapse the long track to a single readable screen. */
 .scrub[data-mode='static'] {
   height: auto;
@@ -264,34 +275,70 @@ body {
     height: 340svh;
   }
 
-  .scrub-copy {
-    align-self: end;
-    justify-self: stretch;
-    margin: 0 clamp(1.25rem, 6vw, 2.5rem) clamp(4rem, 13vh, 7rem);
-    width: auto;
+  /* Stacks: burger on top, copy underneath, both clear of the header. */
+  .scrub-stage {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr) auto;
+    align-items: stretch;
+    padding-left: 0;
+    padding-bottom: clamp(3rem, 9vh, 5rem);
   }
 
-  .scrub-line {
-    font-size: clamp(1.25rem, 5.6vw, 1.85rem);
-  }
-
-  .scrub-title {
-    font-size: clamp(2.5rem, 12.5vw, 3.75rem);
-  }
-
-  .scrub-rail {
-    margin-top: 1.1rem;
-    width: 6.5rem;
-  }
-
-  /* The copy moves to the bottom here, so the burger gets the area above it
-     and is centred inside that box rather than inside the whole stage. */
   .scrub-media {
-    bottom: 24%;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .scrub-copy {
+    grid-column: 1;
+    grid-row: 2;
+    padding: 0 clamp(1.25rem, 6vw, 2.5rem);
   }
 
   .scrub-video,
   .scrub-still {
-    height: min(118%, 166vw);
+    height: min(112%, 166vw);
+  }
+
+  .scrub-lines {
+    min-height: 3.4em;
+    margin-top: 0.6rem;
+  }
+
+  .scrub-line {
+    font-size: clamp(1.35rem, 5.6vw, 1.9rem);
+  }
+
+  .scrub-title {
+    font-size: clamp(2.75rem, 13vw, 4rem);
+  }
+
+  .scrub-support {
+    margin-top: 0.6rem;
+    max-width: 34ch;
+    font-size: 0.875rem;
+    line-height: 1.45;
+  }
+
+  /* Keeps both CTAs on one row so the burger keeps the height instead. */
+  .scrub-actions {
+    margin-top: 0.9rem;
+    flex-wrap: nowrap;
+    gap: 0.5rem;
+  }
+
+  .scrub-actions > * {
+    padding-left: 1.1rem;
+    padding-right: 1.1rem;
+    padding-top: 0.7rem;
+    padding-bottom: 0.7rem;
+    font-size: 12px;
+    white-space: nowrap;
+  }
+
+  /* Decorative only; the burger is a better use of these pixels on a phone. */
+  .scrub-rail,
+  .scrub-cue {
+    display: none;
   }
 }

@@ -40,7 +40,7 @@ export interface CartItem {
 }
 
 export type DeliveryMethod = 'retirada' | 'entrega'
-export type PaymentMethod = 'pix' | 'dinheiro' | 'cartao'
+export type PaymentMethod = 'pix' | 'dinheiro' | 'debito' | 'credito'
 
 export interface CheckoutData {
   name: string

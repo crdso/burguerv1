@@ -1,4 +1,4 @@
-import { Instagram, MessageCircle } from 'lucide-react'
+import { Clock, Instagram, MapPin, MessageCircle } from 'lucide-react'
 import { SITE_CONFIG } from '../data/config'
 
 export function Footer() {
@@ -6,32 +6,80 @@ export function Footer() {
   const year = new Date().getFullYear()
 
   return (
-    <footer className="border-t border-line bg-paper px-5 py-10 sm:px-8 lg:px-12">
-      <div className="mx-auto flex max-w-[1400px] flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-        <p className="font-display text-2xl tracking-wide text-ink">{SITE_CONFIG.brand}</p>
+    <footer className="bg-ink px-5 pb-8 pt-14 text-paper sm:px-8 sm:pt-16 lg:px-12">
+      <div className="mx-auto max-w-[1400px]">
+        <div className="grid gap-10 border-b border-paper/15 pb-10 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-1">
+            <p className="font-display text-3xl tracking-wide">{SITE_CONFIG.brand}</p>
+            <p className="mt-2 max-w-[24ch] font-body text-sm text-paper/55">{SITE_CONFIG.tagline}</p>
+          </div>
 
-        <nav className="flex gap-6" aria-label="Links do rodapé">
-          <a
-            href={whatsappUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 font-body text-sm text-ink/60 transition-colors hover:text-ink"
-          >
-            <MessageCircle size={15} /> WhatsApp
-          </a>
-          <a
-            href={SITE_CONFIG.instagramUrl}
-            target="_blank"
-            rel="noreferrer"
-            className="flex items-center gap-2 font-body text-sm text-ink/60 transition-colors hover:text-ink"
-          >
-            <Instagram size={15} /> Instagram
-          </a>
-        </nav>
+          <div>
+            <h2 className="flex items-center gap-2 font-body text-[11px] font-bold uppercase tracking-widest2 text-ember">
+              <Clock size={13} /> Horário
+            </h2>
+            <ul className="mt-3 flex flex-col gap-1.5">
+              {SITE_CONFIG.hours.map((h) => (
+                <li key={h.days} className="font-body text-sm text-paper/75">
+                  {h.days}
+                  <span className="block text-paper/50">{h.time}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-        <p className="font-body text-xs text-ink/40">
-          © {year} {SITE_CONFIG.brand}
-        </p>
+          <div>
+            <h2 className="flex items-center gap-2 font-body text-[11px] font-bold uppercase tracking-widest2 text-ember">
+              <MapPin size={13} /> Endereço
+            </h2>
+            <address className="mt-3 not-italic font-body text-sm leading-relaxed text-paper/75">
+              {SITE_CONFIG.address.line1}
+              <br />
+              {SITE_CONFIG.address.line2}
+              <br />
+              {SITE_CONFIG.address.city} — {SITE_CONFIG.address.state}
+            </address>
+            <a
+              href={SITE_CONFIG.address.mapsUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="mt-2 inline-block font-body text-sm text-paper underline decoration-paper/30 underline-offset-4 transition-colors hover:decoration-paper"
+            >
+              Como chegar
+            </a>
+          </div>
+
+          <div>
+            <h2 className="font-body text-[11px] font-bold uppercase tracking-widest2 text-ember">Pedidos</h2>
+            <div className="mt-3 flex flex-col gap-2.5">
+              <a
+                href={whatsappUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-fit items-center gap-2 rounded-full bg-flame px-5 py-2.5 font-body text-sm font-bold text-paper transition-colors hover:bg-ember hover:text-ink"
+              >
+                <MessageCircle size={15} /> WhatsApp
+              </a>
+              <a
+                href={SITE_CONFIG.instagramUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex w-fit items-center gap-2 font-body text-sm text-paper/75 transition-colors hover:text-paper"
+              >
+                <Instagram size={15} /> {SITE_CONFIG.instagramHandle}
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-2 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-body text-xs text-paper/45">
+            © {year} {SITE_CONFIG.brand}. Todos os direitos reservados.
+          </p>
+          <p className="font-body text-xs text-paper/35">
+            Imagens meramente ilustrativas.
+          </p>
+        </div>
       </div>
     </footer>
   )
