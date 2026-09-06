@@ -98,7 +98,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar"
-                className="-mr-1 -mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-ink/60 transition-colors hover:bg-ink/5 hover:text-ink"
+                className="-mr-1 -mt-1 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full text-ink/60 transition-colors hover:bg-graphite/5 hover:text-ink"
               >
                 <X size={16} />
               </button>
@@ -121,7 +121,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                             type="checkbox"
                             checked={extraIds.includes(extra.id)}
                             onChange={() => toggle(extraIds, setExtraIds, extra.id)}
-                            className="h-3.5 w-3.5 accent-flame"
+                            className="h-3.5 w-3.5 accent-ink"
                           />
                           <span className="font-body text-[13px] text-ink">{extra.label}</span>
                         </span>
@@ -147,7 +147,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                           onClick={() => toggle(removedIds, setRemovedIds, removable.id)}
                           className={`rounded-full border px-3 py-1.5 font-body text-[12px] font-semibold transition-colors ${
                             active
-                              ? 'border-flame bg-flame/10 text-flame'
+                              ? 'border-ink bg-ink/5 text-ink'
                               : 'border-line text-ink/60 hover:border-ink/40'
                           }`}
                         >
@@ -172,7 +172,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   onChange={(e) => setNote(e.target.value)}
                   placeholder="Ex: ponto da carne, tirar ingrediente..."
                   rows={2}
-                  className="mt-2 w-full resize-none rounded-lg border border-line bg-paper px-3 py-2.5 font-body text-[13px] text-ink placeholder:text-ink/35 focus:border-flame focus:outline-none"
+                  className="mt-2 w-full resize-none rounded-lg border border-line bg-paper px-3 py-2.5 font-body text-[13px] text-ink placeholder:text-ink/35 focus:border-ink focus:outline-none"
                 />
               </div>
             </div>
@@ -183,7 +183,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   type="button"
                   onClick={() => setQuantity((q) => Math.max(1, q - 1))}
                   aria-label="Diminuir quantidade"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-ink/5 disabled:opacity-30"
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-graphite/5 disabled:opacity-30"
                   disabled={quantity <= 1}
                 >
                   <Minus size={14} />
@@ -193,7 +193,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
                   type="button"
                   onClick={() => setQuantity((q) => q + 1)}
                   aria-label="Aumentar quantidade"
-                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-ink/5"
+                  className="flex h-7 w-7 items-center justify-center rounded-full text-ink transition-colors hover:bg-graphite/5"
                 >
                   <Plus size={14} />
                 </button>
@@ -202,7 +202,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               <button
                 type="button"
                 onClick={handleAdd}
-                className="flex flex-1 items-center justify-between gap-2 rounded-full bg-flame px-5 py-3 font-body text-[13px] font-bold uppercase tracking-wider text-paper transition-colors hover:bg-ink"
+                className="flex flex-1 items-center justify-between gap-2 rounded-full bg-ink px-5 py-3 font-body text-[13px] font-bold uppercase tracking-wider text-paper transition-colors hover:bg-graphite"
               >
                 <span>Adicionar</span>
                 <span>{formatBRL(total)}</span>

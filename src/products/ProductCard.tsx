@@ -32,7 +32,7 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
         )}
 
         {product.badge && (
-          <span className="absolute left-2.5 top-2.5 rounded-full bg-flame px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-paper">
+          <span className="absolute left-2.5 top-2.5 rounded-full bg-ink px-2.5 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-paper">
             {product.badge}
           </span>
         )}
@@ -40,7 +40,7 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
 
       <div className="flex flex-1 flex-col gap-1 p-3">
         <h3 className="font-display text-base leading-none tracking-wide text-ink sm:text-lg">{product.name}</h3>
-        <p className="line-clamp-2 font-body text-[11px] leading-snug text-ink/50">{product.description}</p>
+        <p className="line-clamp-2 font-body text-[11px] leading-snug text-ink/70">{product.description}</p>
 
         {/* Stacks on narrow cards, where a price + button row would clip. */}
         <div className="mt-auto flex flex-col gap-2 pt-2.5 sm:flex-row sm:items-center sm:justify-between">
@@ -48,7 +48,7 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
           <button
             type="button"
             onClick={() => onSelect(product)}
-            className="flex w-full items-center justify-center gap-1.5 rounded-full bg-flame px-3 py-2 font-body text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:bg-ink sm:w-auto"
+            className="flex w-full items-center justify-center gap-1.5 rounded-full bg-ink px-3 py-2 font-body text-[11px] font-bold uppercase tracking-wider text-paper transition-colors hover:bg-graphite sm:w-auto"
           >
             <Plus size={13} strokeWidth={3} />
             Adicionar

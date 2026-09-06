@@ -3,7 +3,7 @@
  * WhatsApp number must be digits only, with country code (55 = Brasil).
  */
 export const SITE_CONFIG = {
-  brand: 'RIO HAMBURGUERIA',
+  brand: 'BLACK BURGUER',
   tagline: 'Hambúrguer artesanal, feito na hora.',
   whatsappNumber: '5563999999999',
   instagramHandle: '@blackburgerto',

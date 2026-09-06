@@ -17,8 +17,9 @@ export default {
         /** Page background. Must match --page in index.css and PAGE in scripts/encode-scrub-video.mjs. */
         paper: '#FCFAF8',
         surface: '#FFFFFF',
-        ink: '#14110F',
-        line: '#E6E1D6',
+        ink: '#161616',
+        graphite: '#353535',
+        line: '#E5E2DF',
         void: '#080706',
         charcoal: '#11100E',
         flame: '#D92D15',

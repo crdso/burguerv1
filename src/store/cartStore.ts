@@ -1,7 +1,14 @@
 import { create } from 'zustand'
-import { persist } from 'zustand/middleware'
+import { createJSONStorage, persist } from 'zustand/middleware'
 import type { CartItem, CartItemSelection, Product } from '../types'
 import { getProductById } from '../data/products'
+
+// Read the previous brand's cart once so the rebrand preserves existing orders.
+const LEGACY_CART_KEY = 'rio-hamburgueria-cart'
+const LEGACY_PRODUCT_IDS: Record<string, string> = {
+  'rio-classic': 'black-classic',
+  'rio-bacon': 'black-bacon',
+}
 
 function selectionKey(productId: string, selection: CartItemSelection): string {
   const extras = [...selection.extraIds].sort().join(',')
@@ -69,7 +76,28 @@ export const useCartStore = create<CartState>()(
       clear: () => set({ items: [] }),
     }),
     {
-      name: 'rio-hamburgueria-cart',
+      name: 'black-burguer-cart',
+      version: 1,
+      storage: createJSONStorage(() => ({
+        getItem: (name) => localStorage.getItem(name) ?? localStorage.getItem(LEGACY_CART_KEY),
+        setItem: (name, value) => {
+          localStorage.setItem(name, value)
+          localStorage.removeItem(LEGACY_CART_KEY)
+        },
+        removeItem: (name) => {
+          localStorage.removeItem(name)
+          localStorage.removeItem(LEGACY_CART_KEY)
+        },
+      })),
+      migrate: (persistedState) => {
+        const state = persistedState as Pick<CartState, 'items'>
+        return {
+          items: state.items.map((item) => {
+            const productId = LEGACY_PRODUCT_IDS[item.productId] ?? item.productId
+            return { ...item, productId, key: selectionKey(productId, item.selection) }
+          }),
+        }
+      },
       partialize: (state) => ({ items: state.items }),
     },
   ),

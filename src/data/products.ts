@@ -23,8 +23,8 @@ const BURGER_REMOVABLES: ProductRemovable[] = [
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'rio-classic',
-    name: 'RIO CLASSIC',
+    id: 'black-classic',
+    name: 'BLACK CLASSIC',
     description: 'Pão brioche, burger 160g, cheddar, cebola caramelizada, picles e molho da casa.',
     price: 27.9,
     category: 'hamburgueres',
@@ -34,8 +34,8 @@ export const PRODUCTS: Product[] = [
     removables: BURGER_REMOVABLES,
   },
   {
-    id: 'rio-bacon',
-    name: 'RIO BACON',
+    id: 'black-bacon',
+    name: 'BLACK BACON',
     description: 'Burger 160g, cheddar, bacon artesanal, cebola crispy e barbecue.',
     price: 32.9,
     category: 'hamburgueres',

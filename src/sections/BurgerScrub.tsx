@@ -222,7 +222,7 @@ export function BurgerScrub() {
           />
           <img
             src={SITE_CONFIG.media.final}
-            alt="Hambúrguer artesanal montado, com cheddar, bacon e cebola roxa."
+            alt={`Hambúrguer artesanal da ${SITE_CONFIG.brand}, com cheddar, bacon e cebola roxa.`}
             className="scrub-still"
             loading="lazy"
             decoding="async"
@@ -249,14 +249,14 @@ export function BurgerScrub() {
           <div className="scrub-actions">
             <a
               href="#cardapio"
-              className="inline-flex items-center justify-center rounded-full bg-flame px-7 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-paper transition-colors hover:bg-ink"
+              className="inline-flex items-center justify-center rounded-full bg-ink px-7 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-paper transition-colors hover:bg-graphite"
             >
               Ver o cardápio
             </a>
             <button
               type="button"
               onClick={openCart}
-              className="inline-flex items-center justify-center rounded-full border border-ink/20 px-7 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:border-ink hover:bg-ink hover:text-paper"
+              className="inline-flex items-center justify-center rounded-full border border-ink/20 px-7 py-3.5 font-body text-sm font-bold uppercase tracking-wider text-ink transition-colors hover:border-ink hover:bg-graphite hover:text-paper"
             >
               Pedir agora
             </button>

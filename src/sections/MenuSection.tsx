@@ -2,6 +2,7 @@ import { useDeferredValue, useMemo, useState } from 'react'
 import { Search, X } from 'lucide-react'
 import type { Category, Product } from '../types'
 import { CATEGORIES, PRODUCTS } from '../data/products'
+import { SITE_CONFIG } from '../data/config'
 import { ProductCard } from '../products/ProductCard'
 
 interface MenuSectionProps {
@@ -34,7 +35,7 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
   }, [active, deferredQuery])
 
   return (
-    <section id="cardapio" className="bg-paper px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
+    <section id="cardapio" aria-label={`Cardápio ${SITE_CONFIG.brand}`} className="bg-paper px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
       <div className="mx-auto max-w-[1400px]">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div>

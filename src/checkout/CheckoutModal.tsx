@@ -13,6 +13,7 @@ import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useEscapeKey } from '../hooks/useEscapeKey'
 import { Button } from '../components/Button'
 import { formatBRL } from '../lib/format'
+import { SITE_CONFIG } from '../data/config'
 
 interface CheckoutModalProps {
   open: boolean
@@ -87,14 +88,17 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
             transition={{ type: 'spring', damping: 28, stiffness: 260 }}
           >
             <div className="flex items-center justify-between border-b border-line px-6 py-5">
-              <h2 id="checkout-title" className="font-display text-2xl tracking-wide text-ink">
-                Finalizar pedido
-              </h2>
+              <div>
+                <p className="mb-1 font-body text-[10px] font-bold tracking-widest text-ink/60">{SITE_CONFIG.brand}</p>
+                <h2 id="checkout-title" className="font-display text-2xl tracking-wide text-ink">
+                  Finalizar pedido
+                </h2>
+              </div>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar"
-                className="flex h-9 w-9 items-center justify-center rounded-full text-ink/70 hover:bg-ink/5"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-ink/70 hover:bg-graphite/5"
               >
                 <X size={18} />
               </button>
@@ -111,7 +115,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                     required
                     value={data.name}
                     onChange={(e) => update('name', e.target.value)}
-                    className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                     placeholder="Seu nome"
                   />
                 </div>
@@ -125,7 +129,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                     type="tel"
                     value={data.phone}
                     onChange={(e) => update('phone', e.target.value)}
-                    className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                     placeholder="(00) 00000-0000"
                   />
                 </div>
@@ -140,7 +144,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         key={option}
                         className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border px-4 py-3 font-body text-sm capitalize transition-colors ${
                           data.delivery === option
-                            ? 'border-flame bg-flame/10 text-flame'
+                            ? 'border-ink bg-ink/5 text-ink'
                             : 'border-line text-ink/70 hover:border-ink/40'
                         }`}
                       >
@@ -168,7 +172,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         id="cep"
                         value={data.address.cep}
                         onChange={(e) => updateAddress('cep', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
@@ -179,7 +183,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         id="street"
                         value={data.address.street}
                         onChange={(e) => updateAddress('street', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                       />
                     </div>
                     <div>
@@ -190,7 +194,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         id="number"
                         value={data.address.number}
                         onChange={(e) => updateAddress('number', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                       />
                     </div>
                     <div>
@@ -201,7 +205,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         id="neighborhood"
                         value={data.address.neighborhood}
                         onChange={(e) => updateAddress('neighborhood', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
@@ -212,7 +216,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         id="complement"
                         value={data.address.complement}
                         onChange={(e) => updateAddress('complement', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                       />
                     </div>
                   </div>
@@ -235,7 +239,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         key={option.id}
                         className={`flex cursor-pointer items-center justify-center rounded-lg border px-3 py-3 font-body text-sm transition-colors ${
                           data.payment === option.id
-                            ? 'border-flame bg-flame/10 text-flame'
+                            ? 'border-ink bg-ink/5 text-ink'
                             : 'border-line text-ink/70 hover:border-ink/40'
                         }`}
                       >
@@ -263,7 +267,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                       value={data.changeFor}
                       onChange={(e) => update('changeFor', e.target.value)}
                       placeholder="Ex: R$ 50,00"
-                      className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
+                      className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-ink focus:outline-none"
                     />
                   </div>
                 )}
@@ -287,7 +291,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                     <dt className="font-display text-lg tracking-wide text-ink">
                       {fee > 0 ? 'Total' : 'Total dos produtos'}
                     </dt>
-                    <dd className="font-display text-2xl text-flame">{formatBRL(total)}</dd>
+                    <dd className="font-display text-2xl text-ink">{formatBRL(total)}</dd>
                   </div>
                 </dl>
                 <Button type="submit" variant="solid" className="w-full">

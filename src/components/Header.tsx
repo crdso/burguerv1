@@ -29,11 +29,11 @@ export function Header() {
       style={{ backgroundColor: 'var(--page)' }}
     >
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
-        <a href="#top" className="font-display text-xl tracking-wide text-ink sm:text-2xl">
+        <a href="#top" aria-label={`${SITE_CONFIG.brand} — início`} className="shrink-0 font-display text-2xl tracking-wide text-ink sm:text-3xl">
           {SITE_CONFIG.brand}
         </a>
 
-        <nav className="flex items-center gap-5 sm:gap-7" aria-label="Navegação principal">
+        <nav className="flex items-center gap-3 sm:gap-7" aria-label="Navegação principal">
           {NAV_LINKS.map((link) => (
             <a
               key={link.href}
@@ -48,7 +48,7 @@ export function Header() {
             type="button"
             onClick={openCart}
             aria-label={`Pedir agora, ${count} ${count === 1 ? 'item' : 'itens'} no carrinho`}
-            className="relative flex items-center gap-2 rounded-full bg-flame px-4 py-2 font-body text-[13px] font-bold text-paper transition-colors hover:bg-ink"
+            className="relative flex min-h-11 items-center gap-2 rounded-full bg-ink px-4 py-2 font-body text-[13px] font-bold text-paper transition-colors hover:bg-graphite"
           >
             <ShoppingBag size={15} strokeWidth={2.5} />
             <span className="hidden sm:inline">Pedir agora</span>

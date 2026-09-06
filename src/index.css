@@ -5,7 +5,7 @@
 :root {
   color-scheme: light;
   --page: #fcfaf8;
-  --ink: #14110f;
+  --ink: #161616;
   --header-h: 76px;
 }
 
@@ -44,7 +44,7 @@ body {
 }
 
 ::selection {
-  background: #d92d15;
+  background: var(--ink);
   color: #fcfbf8;
 }
 
@@ -64,7 +64,7 @@ body {
 }
 
 :focus-visible {
-  outline: 2px solid #d92d15;
+  outline: 2px solid #353535;
   outline-offset: 3px;
 }
 
@@ -190,7 +190,7 @@ body {
   max-width: 30ch;
   font-size: clamp(0.95rem, 1.1vw, 1.125rem);
   line-height: 1.5;
-  color: rgba(20, 17, 15, 0.62);
+  color: #52504e;
 }
 
 .scrub-actions {

@@ -67,13 +67,13 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
           >
             <div className="flex items-center justify-between border-b border-line px-6 py-5">
               <h2 className="flex items-center gap-2 font-display text-2xl tracking-wide text-ink">
-                <ShoppingBag size={20} className="text-flame" /> Seu pedido
+                <ShoppingBag size={20} className="text-ink" /> Seu pedido
               </h2>
               <button
                 type="button"
                 onClick={closeCart}
                 aria-label="Fechar"
-                className="flex h-9 w-9 items-center justify-center rounded-full text-ink/70 hover:bg-ink/5 hover:text-ink"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-ink/70 hover:bg-graphite/5 hover:text-ink"
               >
                 <X size={18} />
               </button>
@@ -107,7 +107,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                             <p className="font-display text-lg leading-tight tracking-wide text-ink">
                               {product.name}
                             </p>
-                            <p className="font-body text-sm font-bold text-flame">
+                            <p className="font-body text-sm font-bold text-ink">
                               {formatBRL(item.unitPrice * item.quantity)}
                             </p>
                           </div>
@@ -132,7 +132,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                                 type="button"
                                 onClick={() => updateQuantity(item.key, item.quantity - 1)}
                                 aria-label="Diminuir quantidade"
-                                className="flex h-6 w-6 items-center justify-center rounded-full text-ink hover:bg-ink/5"
+                                className="flex h-6 w-6 items-center justify-center rounded-full text-ink hover:bg-graphite/5"
                               >
                                 <Minus size={12} />
                               </button>
@@ -141,7 +141,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                                 type="button"
                                 onClick={() => updateQuantity(item.key, item.quantity + 1)}
                                 aria-label="Aumentar quantidade"
-                                className="flex h-6 w-6 items-center justify-center rounded-full text-ink hover:bg-ink/5"
+                                className="flex h-6 w-6 items-center justify-center rounded-full text-ink hover:bg-graphite/5"
                               >
                                 <Plus size={12} />
                               </button>
@@ -155,7 +155,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                                   onEditProduct(product)
                                 }}
                                 aria-label={`Editar ${product.name}`}
-                                className="flex items-center gap-1 font-body text-xs text-ink/50 hover:text-flame"
+                                className="flex items-center gap-1 font-body text-xs text-ink/50 hover:text-ink"
                               >
                                 <Pencil size={12} /> editar
                               </button>
@@ -163,7 +163,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                                 type="button"
                                 onClick={() => removeItem(item.key)}
                                 aria-label={`Remover ${product.name}`}
-                                className="flex items-center gap-1 font-body text-xs text-ink/50 hover:text-flame"
+                                className="flex items-center gap-1 font-body text-xs text-ink/50 hover:text-ink"
                               >
                                 <Trash2 size={12} /> remover
                               </button>
@@ -191,7 +191,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                   <span className="font-display text-xl text-ink">
                     {SITE_CONFIG.deliveryFee > 0 ? 'Subtotal' : 'Total dos produtos'}
                   </span>
-                  <span className="font-display text-2xl text-flame">{formatBRL(subtotal)}</span>
+                  <span className="font-display text-2xl text-ink">{formatBRL(subtotal)}</span>
                 </div>
 
                 <Button variant="solid" className="mt-5 w-full" onClick={onCheckout}>

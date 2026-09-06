@@ -10,8 +10,8 @@ export function Footer() {
       <div className="mx-auto max-w-[1400px]">
         <div className="grid gap-10 border-b border-paper/15 pb-10 sm:grid-cols-2 lg:grid-cols-4">
           <div className="lg:col-span-1">
-            <p className="font-display text-3xl tracking-wide">{SITE_CONFIG.brand}</p>
-            <p className="mt-2 max-w-[24ch] font-body text-sm text-paper/55">{SITE_CONFIG.tagline}</p>
+            <p className="font-display text-4xl tracking-wide">{SITE_CONFIG.brand}</p>
+            <p className="mt-2 max-w-[24ch] font-body text-sm text-paper/70">{SITE_CONFIG.tagline}</p>
           </div>
 
           <div>
@@ -56,7 +56,7 @@ export function Footer() {
                 href={whatsappUrl}
                 target="_blank"
                 rel="noreferrer"
-                className="inline-flex w-fit items-center gap-2 rounded-full bg-flame px-5 py-2.5 font-body text-sm font-bold text-paper transition-colors hover:bg-ember hover:text-ink"
+                className="inline-flex w-fit items-center gap-2 rounded-full border border-paper/25 bg-graphite px-5 py-2.5 font-body text-sm font-bold text-paper transition-colors hover:bg-paper hover:text-ink"
               >
                 <MessageCircle size={15} /> WhatsApp
               </a>
