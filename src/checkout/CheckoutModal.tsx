@@ -6,7 +6,7 @@ import { useCartStore, cartSubtotal } from '../store/cartStore'
 import { buildWhatsappMessage, buildWhatsappUrl } from '../lib/whatsapp'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useEscapeKey } from '../hooks/useEscapeKey'
-import { MagneticButton } from '../components/MagneticButton'
+import { Button } from '../components/Button'
 import { formatBRL } from '../lib/format'
 
 interface CheckoutModalProps {
@@ -266,9 +266,9 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                   <span>Subtotal do pedido</span>
                   <span className="font-display text-xl text-ember">{formatBRL(subtotal)}</span>
                 </div>
-                <MagneticButton type="submit" variant="solid" className="w-full">
+                <Button type="submit" variant="solid" className="w-full">
                   Finalizar no WhatsApp
-                </MagneticButton>
+                </Button>
               </div>
             </form>
           </motion.div>

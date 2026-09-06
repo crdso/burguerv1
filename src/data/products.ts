@@ -25,9 +25,9 @@ const BURGER_REMOVABLES: ProductRemovable[] = [
 
 export const PRODUCTS: Product[] = [
   {
-    id: 'brasa-classic',
-    name: 'BRASA CLASSIC',
-    description: 'Pão brioche, burger 160g, cheddar, cebola caramelizada, picles e molho Brasa.',
+    id: 'rio-classic',
+    name: 'RIO CLASSIC',
+    description: 'Pão brioche, burger 160g, cheddar, cebola caramelizada, picles e molho da casa.',
     price: 27.9,
     category: 'classicos',
     image: heroBurger,
@@ -59,8 +59,8 @@ export const PRODUCTS: Product[] = [
     featured: true,
   },
   {
-    id: 'brasa-bacon',
-    name: 'BRASA BACON',
+    id: 'rio-bacon',
+    name: 'RIO BACON',
     description: 'Burger 160g, cheddar, bacon artesanal, cebola crispy e barbecue.',
     price: 32.9,
     category: 'classicos',
@@ -102,7 +102,7 @@ export const PRODUCTS: Product[] = [
   {
     id: 'veggie-fire',
     name: 'VEGGIE FIRE',
-    description: 'Burger vegetal, queijo, cebola caramelizada, tomate e molho Brasa.',
+    description: 'Burger vegetal, queijo, cebola caramelizada, tomate e molho da casa.',
     price: 29.9,
     category: 'especiais',
     imagePlaceholder: true,
@@ -111,9 +111,9 @@ export const PRODUCTS: Product[] = [
     removables: BURGER_REMOVABLES,
   },
   {
-    id: 'combo-brasa',
-    name: 'COMBO BRASA',
-    description: 'Brasa Classic + fritas Brasa + bebida gelada. O trio de sempre, no ponto certo.',
+    id: 'combo-rio',
+    name: 'COMBO RIO',
+    description: 'Rio Classic + fritas da casa + bebida gelada. O combo de sempre.',
     price: 39.9,
     category: 'combos',
     image: comboBurger,
@@ -123,8 +123,8 @@ export const PRODUCTS: Product[] = [
     featured: true,
   },
   {
-    id: 'fritas-brasa',
-    name: 'FRITAS BRASA',
+    id: 'fritas-casa',
+    name: 'FRITAS DA CASA',
     description: 'Fritas crocantes temperadas com especiarias da casa.',
     price: 14.9,
     category: 'acompanhamentos',

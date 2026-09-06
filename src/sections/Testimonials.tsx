@@ -18,7 +18,7 @@ export function Testimonials() {
   return (
     <section className="relative bg-void px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
       <div className="mx-auto max-w-[1500px]">
-        <SectionLabel index="05" label="Quem já provou" />
+        <SectionLabel index="03" label="Quem já provou" />
         <h2 className="mt-6 max-w-2xl font-display text-5xl leading-[0.95] text-cream sm:text-6xl lg:text-7xl">
           NÃO SOMOS NÓS QUEM DIZEMOS.
         </h2>

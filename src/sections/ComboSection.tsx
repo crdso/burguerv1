@@ -1,7 +1,7 @@
 import { getProductById } from '../data/products'
 import { formatBRL } from '../lib/format'
 import { SectionLabel } from '../components/SectionLabel'
-import { MagneticButton } from '../components/MagneticButton'
+import { Button } from '../components/Button'
 import type { Product } from '../types'
 import comboBurger from '../assets/photos/combo-burger.jpg'
 
@@ -10,7 +10,7 @@ interface ComboSectionProps {
 }
 
 export function ComboSection({ onSelect }: ComboSectionProps) {
-  const combo = getProductById('combo-brasa')
+  const combo = getProductById('combo-rio')
   if (!combo) return null
 
   return (
@@ -22,7 +22,7 @@ export function ComboSection({ onSelect }: ComboSectionProps) {
         </div>
 
         <div className="flex flex-col justify-center px-6 py-16 sm:px-10 lg:px-16 lg:py-0">
-          <SectionLabel index="04" label="Combo" />
+          <SectionLabel index="02" label="Combo" />
           <h2 className="mt-6 font-display text-6xl leading-[0.9] text-cream sm:text-7xl">
             {combo.name}
           </h2>
@@ -30,9 +30,9 @@ export function ComboSection({ onSelect }: ComboSectionProps) {
           <p className="mt-8 font-display text-5xl text-ember">{formatBRL(combo.price)}</p>
 
           <div className="mt-9">
-            <MagneticButton variant="solid" onClick={() => onSelect(combo)}>
+            <Button variant="solid" onClick={() => onSelect(combo)}>
               Quero esse
-            </MagneticButton>
+            </Button>
           </div>
         </div>
       </div>

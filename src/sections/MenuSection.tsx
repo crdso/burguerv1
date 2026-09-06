@@ -18,7 +18,7 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
       <div className="mx-auto max-w-[1500px]">
         <div className="flex flex-col gap-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <SectionLabel index="03" label="Cardápio" />
+            <SectionLabel index="01" label="Cardápio" />
             <h2 className="mt-5 font-display text-6xl leading-[0.9] text-cream sm:text-7xl lg:text-8xl">
               O QUE VOCÊ
               <br />

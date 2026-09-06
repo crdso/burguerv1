@@ -101,7 +101,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
 
             <div className="flex flex-1 flex-col overflow-y-auto px-6 py-6 sm:px-8 sm:py-8">
               {product.badge && (
-                <span className="mb-2 inline-block w-fit rounded-full bg-brasa/20 px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-ember">
+                <span className="mb-2 inline-block w-fit rounded-full bg-flame/20 px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-ember">
                   {product.badge}
                 </span>
               )}
@@ -204,7 +204,7 @@ export function ProductModal({ product, onClose }: ProductModalProps) {
               <button
                 type="button"
                 onClick={handleAdd}
-                className="mt-4 flex w-full items-center justify-between rounded-full bg-ember px-7 py-4 font-body text-sm font-bold uppercase tracking-widest text-void transition-colors hover:bg-brasa"
+                className="mt-4 flex w-full items-center justify-between rounded-full bg-ember px-7 py-4 font-body text-sm font-bold uppercase tracking-widest text-void transition-colors hover:bg-flame"
               >
                 <span>Adicionar ao pedido</span>
                 <span>{formatBRL(total)}</span>

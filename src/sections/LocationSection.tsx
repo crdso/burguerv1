@@ -1,6 +1,6 @@
 import { Clock, MapPin } from 'lucide-react'
 import { SectionLabel } from '../components/SectionLabel'
-import { MagneticButton } from '../components/MagneticButton'
+import { Button } from '../components/Button'
 import { SITE_CONFIG } from '../data/config'
 
 export function LocationSection() {
@@ -8,13 +8,12 @@ export function LocationSection() {
 
   return (
     <section id="local" className="relative overflow-hidden bg-void px-5 py-24 sm:px-8 sm:py-32 lg:px-12">
-      <div className="absolute inset-0 bg-ember-glow opacity-20" aria-hidden="true" />
       <div className="relative mx-auto max-w-[1400px]">
-        <SectionLabel index="07" label="Localização" />
+        <SectionLabel index="05" label="Localização" />
         <h2 className="mt-6 font-display text-6xl leading-[0.9] text-cream sm:text-7xl lg:text-8xl">
-          ONDE A BRASA
+          ONDE A GENTE
           <br />
-          <span className="text-ember">ACONTECE.</span>
+          <span className="text-ember">TÁ.</span>
         </h2>
 
         <div className="mt-14 grid grid-cols-1 gap-10 border-t border-cream/10 pt-10 sm:grid-cols-2 lg:grid-cols-3">
@@ -42,10 +41,10 @@ export function LocationSection() {
 
           <div className="flex flex-wrap items-start gap-4 sm:col-span-2 lg:col-span-1 lg:justify-end">
             <a href={SITE_CONFIG.address.mapsUrl} target="_blank" rel="noreferrer">
-              <MagneticButton variant="outline">Como chegar</MagneticButton>
+              <Button variant="outline">Como chegar</Button>
             </a>
             <a href={whatsappUrl} target="_blank" rel="noreferrer">
-              <MagneticButton variant="solid">WhatsApp</MagneticButton>
+              <Button variant="solid">WhatsApp</Button>
             </a>
           </div>
         </div>

@@ -10,7 +10,7 @@ export function Footer() {
       <div className="mx-auto flex max-w-[1500px] flex-col gap-10 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="font-display text-4xl tracking-wide text-cream">{SITE_CONFIG.brand}</p>
-          <p className="mt-2 font-body text-sm uppercase tracking-widest2 text-ember">{SITE_CONFIG.slogan}</p>
+          <p className="mt-2 font-body text-sm text-cream/60">{SITE_CONFIG.tagline}</p>
         </div>
 
         <nav className="flex flex-wrap gap-x-8 gap-y-3" aria-label="Links do rodapé">

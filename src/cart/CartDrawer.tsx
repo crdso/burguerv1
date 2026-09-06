@@ -6,7 +6,7 @@ import { formatBRL } from '../lib/format'
 import { useLockBodyScroll } from '../hooks/useLockBodyScroll'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { useEscapeKey } from '../hooks/useEscapeKey'
-import { MagneticButton } from '../components/MagneticButton'
+import { Button } from '../components/Button'
 
 interface CartDrawerProps {
   onCheckout: () => void
@@ -162,7 +162,7 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                                 type="button"
                                 onClick={() => removeItem(item.key)}
                                 aria-label={`Remover ${product.name}`}
-                                className="flex items-center gap-1 font-body text-xs text-cream/50 hover:text-brasa"
+                                className="flex items-center gap-1 font-body text-xs text-cream/50 hover:text-flame"
                               >
                                 <Trash2 size={12} /> remover
                               </button>
@@ -191,9 +191,9 @@ export function CartDrawer({ onCheckout, onEditProduct }: CartDrawerProps) {
                   <span className="font-display text-2xl text-ember">{formatBRL(subtotal)}</span>
                 </div>
 
-                <MagneticButton variant="solid" className="mt-5 w-full" onClick={onCheckout}>
+                <Button variant="solid" className="mt-5 w-full" onClick={onCheckout}>
                   Finalizar no WhatsApp
-                </MagneticButton>
+                </Button>
               </div>
             )}
           </motion.aside>

@@ -39,7 +39,7 @@ export function ProductCard({ product, onSelect, priority = false }: ProductCard
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal via-transparent to-transparent opacity-90" />
 
         {product.badge && (
-          <span className="absolute left-3 top-3 rounded-full bg-brasa/90 px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-cream">
+          <span className="absolute left-3 top-3 rounded-full bg-flame/90 px-3 py-1 font-body text-[10px] font-bold uppercase tracking-wider text-cream">
             {product.badge}
           </span>
         )}

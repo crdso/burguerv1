@@ -6,9 +6,8 @@ import { useCartStore, cartItemCount } from '../store/cartStore'
 
 const NAV_LINKS = [
   { href: '#cardapio', label: 'Cardápio' },
-  { href: '#fogo', label: 'O Fogo' },
   { href: '#combo', label: 'Combo' },
-  { href: '#local', label: 'Onde Estamos' },
+  { href: '#local', label: 'Onde estamos' },
 ]
 
 export function Header() {
@@ -65,7 +64,7 @@ export function Header() {
                   animate={{ scale: 1, opacity: 1 }}
                   exit={{ scale: 0.4, opacity: 0 }}
                   transition={{ type: 'spring', stiffness: 500, damping: 20 }}
-                  className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-brasa px-1 font-body text-[11px] font-bold text-cream"
+                  className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-flame px-1 font-body text-[11px] font-bold text-cream"
                 >
                   {count}
                 </motion.span>

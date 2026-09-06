@@ -4,6 +4,7 @@
 
 :root {
   color-scheme: dark;
+  --page: #080706;
 }
 
 * {
@@ -30,7 +31,7 @@ html {
 
 html,
 body {
-  background-color: #080706;
+  background-color: var(--page);
   color: #f2e6d2;
 }
 
@@ -49,12 +50,12 @@ body {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #080706;
+  background: var(--page);
 }
 ::-webkit-scrollbar-thumb {
   background: #21150f;
   border-radius: 8px;
-  border: 2px solid #080706;
+  border: 2px solid var(--page);
 }
 ::-webkit-scrollbar-thumb:hover {
   background: #d92d15;
@@ -70,15 +71,247 @@ body {
   letter-spacing: 0.01em;
 }
 
-.text-stroke {
-  -webkit-text-stroke: 1px rgba(242, 230, 210, 0.5);
+/* ---------------------------------------------------------------
+   Scroll-scrubbed burger assembly.
+   JS writes --scrub-progress / --scrub-veil; nothing here re-renders.
+   --------------------------------------------------------------- */
+
+.scrub {
+  --scrub-progress: 0;
+  --scrub-veil: 0;
+  position: relative;
+  height: 420svh;
+  background: var(--page);
 }
 
-.grain-overlay {
-  position: fixed;
+.scrub-stage {
+  position: sticky;
+  top: 0;
+  height: 100svh;
+  width: 100%;
+  overflow: hidden;
+  isolation: isolate;
+  background: var(--page);
+}
+
+.scrub-media {
+  position: absolute;
   inset: 0;
+  z-index: 1;
+}
+
+.scrub-video,
+.scrub-still {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  background: var(--page);
+}
+
+.scrub-still {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
   pointer-events: none;
-  z-index: 60;
-  opacity: 0.04;
-  mix-blend-mode: overlay;
+  transition: opacity 0.45s ease;
+}
+
+.scrub[data-mode='static'] .scrub-still {
+  opacity: 1;
+}
+
+.scrub[data-mode='static'] .scrub-video {
+  visibility: hidden;
+}
+
+/* Dissolves the video's own dark backdrop into the page on every edge,
+   so it reads as part of the layout instead of a pasted rectangle. */
+.scrub-blend {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  background:
+    linear-gradient(to bottom, var(--page) 0%, rgba(8, 7, 6, 0) 16%),
+    linear-gradient(to top, var(--page) 0%, rgba(8, 7, 6, 0) 20%),
+    linear-gradient(to right, var(--page) 0%, rgba(8, 7, 6, 0) 14%),
+    linear-gradient(to left, var(--page) 0%, rgba(8, 7, 6, 0) 14%);
+}
+
+.scrub-copy {
+  position: absolute;
+  z-index: 3;
+  left: clamp(1.25rem, 5vw, 5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  /* Narrow enough to sit beside the contained video, never across the burger. */
+  width: min(24rem, 28vw);
+  pointer-events: none;
+}
+
+.scrub-kicker {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #ff5a1f;
+}
+
+.scrub-lines {
+  display: grid;
+  margin-top: 1.1rem;
+}
+
+.scrub-line {
+  grid-area: 1 / 1;
+  margin: 0;
+  align-self: center;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0);
+  will-change: opacity, transform;
+  font-family: 'Bebas Neue', Impact, sans-serif;
+  color: #f2e6d2;
+  line-height: 1;
+  font-size: clamp(1.5rem, 2.5vw, 2.5rem);
+}
+
+.scrub-title {
+  line-height: 0.86;
+  font-size: clamp(2.5rem, 4.6vw, 4.75rem);
+}
+
+.scrub-rail {
+  position: relative;
+  margin-top: 2rem;
+  width: min(12rem, 55%);
+  height: 1px;
+  background: rgba(242, 230, 210, 0.16);
+  overflow: hidden;
+}
+
+.scrub-rail i {
+  position: absolute;
+  inset: 0;
+  display: block;
+  background: #ff5a1f;
+  transform: scaleX(var(--scrub-progress));
+  transform-origin: left center;
+}
+
+.scrub-cue {
+  position: absolute;
+  z-index: 3;
+  left: 50%;
+  bottom: clamp(1.25rem, 4vh, 2.5rem);
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: rgba(242, 230, 210, 0.45);
+  pointer-events: none;
+}
+
+.scrub-cue span {
+  width: 1.5rem;
+  height: 1px;
+  background: currentColor;
+  animation: scrubCue 2.4s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes scrubCue {
+  0%,
+  100% {
+    transform: scaleX(0.35);
+    opacity: 0.35;
+  }
+  50% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.scrub-outro {
+  position: absolute;
+  z-index: 4;
+  left: 50%;
+  bottom: clamp(2rem, 8vh, 5rem);
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.scrub-veil {
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  background: var(--page);
+  opacity: var(--scrub-veil);
+  pointer-events: none;
+  will-change: opacity;
+}
+
+/* Reduced motion: collapse the long track to a single readable screen. */
+.scrub[data-mode='static'] {
+  height: auto;
+}
+
+.scrub[data-mode='static'] .scrub-stage {
+  position: relative;
+  height: 92svh;
+}
+
+.scrub[data-mode='static'] .scrub-cue,
+.scrub[data-mode='static'] .scrub-veil {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .scrub {
+    height: 360svh;
+  }
+
+  .scrub-copy {
+    top: auto;
+    bottom: clamp(4.5rem, 14vh, 8rem);
+    transform: none;
+    left: clamp(1.25rem, 6vw, 2.5rem);
+    right: clamp(1.25rem, 6vw, 2.5rem);
+    width: auto;
+  }
+
+  .scrub-rail {
+    margin-top: 1.25rem;
+    width: 7rem;
+  }
+
+  .scrub-line {
+    font-size: clamp(1.35rem, 6.5vw, 2rem);
+  }
+
+  .scrub-title {
+    font-size: clamp(2.75rem, 14vw, 4rem);
+  }
+
+  /* Lifts the burger clear of the copy block sitting at the bottom. */
+  .scrub-video,
+  .scrub-still {
+    object-position: center 22%;
+  }
+
+  /* Deeper base under the copy so type stays readable over the food. */
+  .scrub-blend {
+    background:
+      linear-gradient(to bottom, var(--page) 0%, rgba(8, 7, 6, 0) 12%),
+      linear-gradient(to top, var(--page) 0%, rgba(8, 7, 6, 0.88) 14%, rgba(8, 7, 6, 0) 42%),
+      linear-gradient(to right, var(--page) 0%, rgba(8, 7, 6, 0) 8%),
+      linear-gradient(to left, var(--page) 0%, rgba(8, 7, 6, 0) 8%);
+  }
 }
