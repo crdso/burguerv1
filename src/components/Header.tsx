@@ -24,11 +24,11 @@ export function Header() {
   return (
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-colors duration-300 ${
-        scrolled ? 'bg-void/90 backdrop-blur-md' : 'bg-transparent'
+        scrolled ? 'bg-paper/90 backdrop-blur-md' : 'bg-transparent'
       }`}
     >
       <div className="mx-auto flex max-w-[1400px] items-center justify-between gap-4 px-5 py-4 sm:px-8 lg:px-12">
-        <a href="#top" className="font-display text-xl tracking-wide text-cream sm:text-2xl">
+        <a href="#top" className="font-display text-xl tracking-wide text-ink sm:text-2xl">
           {SITE_CONFIG.brand}
         </a>
 
@@ -37,7 +37,7 @@ export function Header() {
             <a
               key={link.href}
               href={link.href}
-              className="font-body text-[13px] font-semibold text-cream/70 transition-colors hover:text-cream"
+              className="font-body text-[13px] font-semibold text-ink/70 transition-colors hover:text-ink"
             >
               {link.label}
             </a>
@@ -47,12 +47,12 @@ export function Header() {
             type="button"
             onClick={openCart}
             aria-label={`Pedir agora, ${count} ${count === 1 ? 'item' : 'itens'} no carrinho`}
-            className="relative flex items-center gap-2 rounded-full bg-ember px-4 py-2 font-body text-[13px] font-bold text-void transition-colors hover:bg-flame"
+            className="relative flex items-center gap-2 rounded-full bg-flame px-4 py-2 font-body text-[13px] font-bold text-paper transition-colors hover:bg-ink"
           >
             <ShoppingBag size={15} strokeWidth={2.5} />
             <span className="hidden sm:inline">Pedir agora</span>
             {count > 0 && (
-              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-void px-1 font-body text-[11px] font-bold text-cream">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-paper px-1 font-body text-[11px] font-bold text-ink">
                 {count}
               </span>
             )}

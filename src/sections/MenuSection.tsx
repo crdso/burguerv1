@@ -12,10 +12,10 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
   const filtered = useMemo(() => PRODUCTS.filter((p) => p.category === active), [active])
 
   return (
-    <section id="cardapio" className="bg-void px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
+    <section id="cardapio" className="bg-paper px-5 py-20 sm:px-8 sm:py-24 lg:px-12">
       <div className="mx-auto max-w-[1400px]">
-        <h2 className="font-display text-5xl leading-none tracking-wide text-cream sm:text-6xl">CARDÁPIO</h2>
-        <p className="mt-3 max-w-md font-body text-sm text-cream/50">
+        <h2 className="font-display text-5xl leading-none tracking-wide text-ink sm:text-6xl">CARDÁPIO</h2>
+        <p className="mt-3 max-w-md font-body text-sm text-ink/50">
           Tudo sai na hora do pedido. Escolha e finalize pelo WhatsApp.
         </p>
 
@@ -29,8 +29,8 @@ export function MenuSection({ onSelectProduct }: MenuSectionProps) {
               onClick={() => setActive(category.id)}
               className={`rounded-full border px-4 py-2 font-body text-[13px] font-bold transition-colors ${
                 active === category.id
-                  ? 'border-cream bg-cream text-void'
-                  : 'border-cream/15 text-cream/60 hover:border-cream/40 hover:text-cream'
+                  ? 'border-ink bg-ink text-paper'
+                  : 'border-line text-ink/60 hover:border-ink/40 hover:text-ink'
               }`}
             >
               {category.label}

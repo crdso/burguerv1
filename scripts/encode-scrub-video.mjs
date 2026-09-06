@@ -17,12 +17,20 @@ import ffmpeg from 'ffmpeg-static'
 const SRC = 'burguer.mp4'
 const OUT = 'public/media'
 
-/** Must match --page in src/index.css, or the seam becomes visible. */
-const PAGE = '0x080706'
+/**
+ * Must match --page in src/index.css or the seam becomes visible. Note yuv420p
+ * conversion shifts this by one level on output, so --page carries the measured
+ * result (#fcfaf8) rather than the value fed in here.
+ */
+const PAGE = '0xFCFBF8'
 /** The burger finishes assembling at ~3.5s; the rest of the source is static. */
 const DURATION = 3.8
-/** Keys the white matte without eating the pale bottom bun or sesame seeds. */
-const KEY = 'colorkey=0xFFFFFF:0.12:0.06'
+/**
+ * Keys the white matte. The page is near-white, so any residual matte pixel is
+ * imperceptible against it — a gentle key is safe here and keeps more of the
+ * bun's highlights and sesame seeds than the wider key a dark page needed.
+ */
+const KEY = 'colorkey=0xFFFFFF:0.04:0.04'
 
 const GOP = ['-g', '5', '-keyint_min', '5', '-sc_threshold', '0']
 const BASE = ['-an', '-c:v', 'libx264', '-profile:v', 'main', '-pix_fmt', 'yuv420p', '-preset', 'slow', '-movflags', '+faststart']

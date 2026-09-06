@@ -18,8 +18,8 @@ const CHAPTERS: Window4[] = [
   [0.69, 0.76, 0.88, 0.94],
 ]
 
-/** The video reaches its last frame here; the rest of the track fades to the page. */
-const VIDEO_END = 0.88
+/** The video reaches its last frame here; the rest of the pin lets it settle. */
+const VIDEO_END = 0.96
 
 const clamp = (v: number, min = 0, max = 1) => Math.min(max, Math.max(min, v))
 const ease = (v: number) => {
@@ -86,7 +86,6 @@ export function BurgerScrub() {
 
     function render(progress: number) {
       section!.style.setProperty('--scrub-progress', progress.toFixed(4))
-      section!.style.setProperty('--scrub-veil', ease((progress - 0.9) / 0.1).toFixed(4))
 
       for (let i = 0; i < lines.length; i++) {
         const o = opacityFor(progress, CHAPTERS[i])
@@ -259,7 +258,7 @@ export function BurgerScrub() {
         <div ref={outroRef} className="scrub-outro">
           <a
             href="#cardapio"
-            className="inline-flex items-center rounded-full bg-cream px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-void transition-colors hover:bg-ember"
+            className="inline-flex items-center rounded-full bg-flame px-8 py-4 font-body text-sm font-bold uppercase tracking-widest text-paper transition-colors hover:bg-ink"
           >
             Ver o cardápio
           </a>
@@ -269,8 +268,6 @@ export function BurgerScrub() {
           <span />
           Role para montar
         </div>
-
-        <div className="scrub-veil" aria-hidden="true" />
       </div>
     </section>
   )

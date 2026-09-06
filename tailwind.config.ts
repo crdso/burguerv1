@@ -14,9 +14,13 @@ export default {
     },
     extend: {
       colors: {
+        /** Page background. Must match --page in index.css and PAGE in scripts/encode-scrub-video.mjs. */
+        paper: '#FCFAF8',
+        surface: '#FFFFFF',
+        ink: '#14110F',
+        line: '#E6E1D6',
         void: '#080706',
         charcoal: '#11100E',
-        ash: '#21150F',
         flame: '#D92D15',
         ember: '#FF5A1F',
         cream: '#F2E6D2',

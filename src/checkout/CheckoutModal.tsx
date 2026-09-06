@@ -65,7 +65,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
           <button
             type="button"
             aria-label="Fechar"
-            className="absolute inset-0 bg-void/85 backdrop-blur-sm"
+            className="absolute inset-0 bg-ink/45 backdrop-blur-sm"
             onClick={onClose}
           />
 
@@ -73,21 +73,21 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
             role="dialog"
             aria-modal="true"
             aria-labelledby="checkout-title"
-            className="relative z-10 flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl bg-charcoal sm:max-h-[88vh] sm:rounded-2xl"
+            className="relative z-10 flex max-h-[92vh] w-full max-w-lg flex-col overflow-hidden rounded-t-3xl bg-surface sm:max-h-[88vh] sm:rounded-2xl"
             initial={{ y: '100%', opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             exit={{ y: '100%', opacity: 0 }}
             transition={{ type: 'spring', damping: 28, stiffness: 260 }}
           >
-            <div className="flex items-center justify-between border-b border-cream/10 px-6 py-5">
-              <h2 id="checkout-title" className="font-display text-2xl tracking-wide text-cream">
+            <div className="flex items-center justify-between border-b border-line px-6 py-5">
+              <h2 id="checkout-title" className="font-display text-2xl tracking-wide text-ink">
                 Finalizar pedido
               </h2>
               <button
                 type="button"
                 onClick={onClose}
                 aria-label="Fechar"
-                className="flex h-9 w-9 items-center justify-center rounded-full text-cream/70 hover:bg-cream/10"
+                className="flex h-9 w-9 items-center justify-center rounded-full text-ink/70 hover:bg-ink/5"
               >
                 <X size={18} />
               </button>
@@ -96,7 +96,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
             <form onSubmit={handleSubmit} className="flex flex-1 flex-col overflow-y-auto">
               <div className="flex flex-1 flex-col gap-6 px-6 py-6">
                 <div>
-                  <label htmlFor="name" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                  <label htmlFor="name" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                     Nome *
                   </label>
                   <input
@@ -104,13 +104,13 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                     required
                     value={data.name}
                     onChange={(e) => update('name', e.target.value)}
-                    className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                     placeholder="Seu nome"
                   />
                 </div>
 
                 <div>
-                  <label htmlFor="phone" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                  <label htmlFor="phone" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                     Telefone (opcional)
                   </label>
                   <input
@@ -118,13 +118,13 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                     type="tel"
                     value={data.phone}
                     onChange={(e) => update('phone', e.target.value)}
-                    className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                    className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                     placeholder="(00) 00000-0000"
                   />
                 </div>
 
                 <fieldset>
-                  <legend className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                  <legend className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                     Entrega
                   </legend>
                   <div className="mt-3 grid grid-cols-2 gap-3">
@@ -133,8 +133,8 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         key={option}
                         className={`flex cursor-pointer items-center justify-center gap-2 rounded-lg border px-4 py-3 font-body text-sm capitalize transition-colors ${
                           data.delivery === option
-                            ? 'border-ember bg-ember/15 text-ember'
-                            : 'border-cream/15 text-cream/70 hover:border-cream/40'
+                            ? 'border-flame bg-flame/10 text-flame'
+                            : 'border-line text-ink/70 hover:border-ink/40'
                         }`}
                       >
                         <input
@@ -154,65 +154,65 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                 {data.delivery === 'entrega' && (
                   <div className="grid grid-cols-2 gap-3">
                     <div className="col-span-2">
-                      <label htmlFor="cep" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                      <label htmlFor="cep" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                         CEP (opcional)
                       </label>
                       <input
                         id="cep"
                         value={data.address.cep}
                         onChange={(e) => updateAddress('cep', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label htmlFor="street" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                      <label htmlFor="street" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                         Rua
                       </label>
                       <input
                         id="street"
                         value={data.address.street}
                         onChange={(e) => updateAddress('street', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label htmlFor="number" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                      <label htmlFor="number" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                         Número
                       </label>
                       <input
                         id="number"
                         value={data.address.number}
                         onChange={(e) => updateAddress('number', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                       />
                     </div>
                     <div>
-                      <label htmlFor="neighborhood" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                      <label htmlFor="neighborhood" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                         Bairro
                       </label>
                       <input
                         id="neighborhood"
                         value={data.address.neighborhood}
                         onChange={(e) => updateAddress('neighborhood', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                       />
                     </div>
                     <div className="col-span-2">
-                      <label htmlFor="complement" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                      <label htmlFor="complement" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                         Complemento
                       </label>
                       <input
                         id="complement"
                         value={data.address.complement}
                         onChange={(e) => updateAddress('complement', e.target.value)}
-                        className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                        className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                       />
                     </div>
                   </div>
                 )}
 
                 <fieldset>
-                  <legend className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                  <legend className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                     Forma de pagamento
                   </legend>
                   <div className="mt-3 grid grid-cols-3 gap-3">
@@ -227,8 +227,8 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                         key={option.id}
                         className={`flex cursor-pointer items-center justify-center rounded-lg border px-3 py-3 font-body text-sm transition-colors ${
                           data.payment === option.id
-                            ? 'border-ember bg-ember/15 text-ember'
-                            : 'border-cream/15 text-cream/70 hover:border-cream/40'
+                            ? 'border-flame bg-flame/10 text-flame'
+                            : 'border-line text-ink/70 hover:border-ink/40'
                         }`}
                       >
                         <input
@@ -247,7 +247,7 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
 
                 {data.payment === 'dinheiro' && (
                   <div>
-                    <label htmlFor="changeFor" className="font-body text-xs font-semibold uppercase tracking-widest2 text-cream/50">
+                    <label htmlFor="changeFor" className="font-body text-xs font-semibold uppercase tracking-widest2 text-ink/50">
                       Troco para quanto?
                     </label>
                     <input
@@ -255,16 +255,16 @@ export function CheckoutModal({ open, onClose }: CheckoutModalProps) {
                       value={data.changeFor}
                       onChange={(e) => update('changeFor', e.target.value)}
                       placeholder="Ex: R$ 50,00"
-                      className="mt-2 w-full rounded-lg border border-cream/15 bg-void/40 px-4 py-3 font-body text-sm text-cream focus:border-ember focus:outline-none"
+                      className="mt-2 w-full rounded-lg border border-line bg-paper px-4 py-3 font-body text-sm text-ink focus:border-flame focus:outline-none"
                     />
                   </div>
                 )}
               </div>
 
-              <div className="border-t border-cream/10 px-6 py-5">
-                <div className="mb-4 flex items-center justify-between font-body text-sm text-cream/60">
+              <div className="border-t border-line px-6 py-5">
+                <div className="mb-4 flex items-center justify-between font-body text-sm text-ink/60">
                   <span>Subtotal do pedido</span>
-                  <span className="font-display text-xl text-ember">{formatBRL(subtotal)}</span>
+                  <span className="font-display text-xl text-flame">{formatBRL(subtotal)}</span>
                 </div>
                 <Button type="submit" variant="solid" className="w-full">
                   Finalizar no WhatsApp

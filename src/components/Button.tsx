@@ -11,8 +11,8 @@ interface ButtonProps {
 }
 
 const VARIANTS = {
-  solid: 'bg-ember text-void hover:bg-flame',
-  outline: 'border border-cream/25 text-cream hover:border-ember hover:text-ember',
+  solid: 'bg-flame text-paper hover:bg-ink',
+  outline: 'border border-ink/25 text-ink hover:border-flame hover:text-flame',
 }
 
 export function Button({
