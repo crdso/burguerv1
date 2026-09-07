@@ -4,6 +4,8 @@
  */
 export const SITE_CONFIG = {
   brand: 'BLACK BURGUER',
+  brandLogo: '/brand/black-burguer-logo.png',
+  brandLogoFallback: '/brand/black-burguer.png',
   tagline: 'Hambúrguer artesanal, feito na hora.',
   whatsappNumber: '5563999999999',
   instagramHandle: '@blackburgerto',

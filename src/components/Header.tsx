@@ -29,8 +29,18 @@ export function Header() {
       style={{ backgroundColor: 'var(--page)' }}
     >
       <div className="mx-auto flex h-full max-w-[1400px] items-center justify-between gap-4 px-5 sm:px-8 lg:px-12">
-        <a href="#top" aria-label={`${SITE_CONFIG.brand} — início`} className="shrink-0 font-display text-2xl tracking-wide text-ink sm:text-3xl">
-          {SITE_CONFIG.brand}
+        <a href="#top" aria-label={`${SITE_CONFIG.brand} — início`} className="shrink-0">
+          <img
+            src={SITE_CONFIG.brandLogo}
+            alt={SITE_CONFIG.brand}
+            width="938"
+            height="938"
+            className="h-14 w-auto object-contain sm:h-[68px]"
+            onError={(event) => {
+              event.currentTarget.onerror = null
+              event.currentTarget.src = SITE_CONFIG.brandLogoFallback
+            }}
+          />
         </a>
 
         <nav className="flex items-center gap-3 sm:gap-7" aria-label="Navegação principal">
